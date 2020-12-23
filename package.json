@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec babel-node ./src/index.js",
     "build": "npx netlify-lambda build src",
+    "serve": "npx netlify-lambda serve src",
     "lint": "eslint --ext .js --ignore-path .gitignore ."
   },
   "keywords": [],

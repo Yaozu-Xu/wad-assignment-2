@@ -1,18 +1,13 @@
 import express from 'express'
-import serverless from 'serverless-http'
 import dotenv from 'dotenv'
+import serverless from 'serverless-http'
+import movieRouter from './routes/movies'
 
 dotenv.config()
 
 const app = express()
 
-const router = express.Router()
-const port = process.env.PORT
+app.use('/.netlify/functions/index', movieRouter)
 
-router.get('/', (req, res) => res.json({ hello: 'xyz' }))
-
-app.use('./netlify/functions/api', router)
-
-app.listen(port)
-
-module.exports.handler = serverless(app)
+// eslint-disable-next-line import/prefer-default-export
+export const handler = serverless(app)
