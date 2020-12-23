@@ -1,0 +1,41 @@
+image: node:latest
+
+variables:
+   npm_config_cache: "$CI_PROJECT_DIR/.npm"
+   NODE_ENV: 'production'
+
+cache:
+   key:
+     files:
+        - package.json
+   paths:
+      - .npm
+      - node_modules
+
+stages:
+  - install
+  - build
+  - deploy
+
+install_dependencies:
+  stage: install
+  script:
+    - npm ci
+
+build_netlify_functions:
+  stage: build
+  script:
+    - npm run build
+
+deploy_staging:
+  only:
+    - develop
+  stage: deploy
+  before_script:
+    - npm install -g netlify-cli
+  environment:
+    name: deploy_staging
+    url: https://api.netlify.com/build_hooks/5fe36b67e4c1eaacc09d94e3https://api.netlify.com/build_hooks/5fe36b67e4c1eaacc09d94e3
+  script:
+    - npm run build
+    - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
