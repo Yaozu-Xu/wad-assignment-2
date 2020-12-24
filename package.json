@@ -4,7 +4,8 @@
   "description": "",
   "main": "api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --detectOpenHandles",
+    "test:watch": "jest --watch",
     "start": "nodemon --exec babel-node ./src/api.js",
     "build": "npx netlify-lambda build src",
     "serve": "npx netlify-lambda serve src",
@@ -25,7 +26,9 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "nodemon": "^2.0.6"
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
@@ -35,5 +38,8 @@
     "netlify-lambda": "^2.0.2",
     "saslprep": "^1.0.3",
     "serverless-http": "^2.6.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
