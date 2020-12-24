@@ -15,7 +15,8 @@ cache:
 stages:
   - install
   - build
-  - deploy
+  - test
+  - production
 
 install_dependencies:
   stage: install
@@ -27,10 +28,15 @@ build_netlify_functions:
   script:
     - npm run build
 
-deploy_staging:
+test_endpoint:
+  stage: test
+  script:
+    - npm run test
+
+deploy_production_develop:
   only:
     - develop
-  stage: deploy
+  stage: production
   before_script:
     - npm install -g netlify-cli
   environment:
@@ -39,4 +45,19 @@ deploy_staging:
   script:
     - npm run build
     - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+    - echo "Deployed to production server"
   when: manual
+
+deploy_production_master:
+  only:
+    - master
+  stage: production
+  before_script:
+    - npm install -g netlify-cli
+  environment:
+    name: deploy_staging
+    url: $NETLIFY_MASTER_BUILD_URL
+  script:
+    - npm run build
+    - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+    - echo "Deployed to production server"
