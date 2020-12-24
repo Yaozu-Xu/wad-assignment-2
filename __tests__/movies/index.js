@@ -1,19 +1,10 @@
 import request from 'supertest'
 import mongoose from 'mongoose'
-
-let api
+import api from '../../src/api'
 
 const baseUrl = '/.netlify/functions/api/movies'
 
 describe('movie api testing', () => {
-  beforeEach(() => {
-    // eslint-disable-next-line global-require
-    api = require('../../src/api')
-  })
-  afterEach((done) => {
-    delete require.cache[require.resolve('../../src/api')]
-    done()
-  })
   it('get the movie list api', async (done) => {
     await request(api)
       .get(baseUrl)

@@ -17,4 +17,4 @@ app.use('/.netlify/functions/api/movies', movieRouter)
 
 export const handler = serverless(app)
 
-module.exports = app
+export default app
