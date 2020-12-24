@@ -2,7 +2,11 @@ image: node:latest
 
 variables:
    npm_config_cache: "$CI_PROJECT_DIR/.npm"
-   NODE_ENV: 'production'
+   NODE_ENV: 'development'
+
+services:
+  - mongo
+ 
 
 cache:
    key:
