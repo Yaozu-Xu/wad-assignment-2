@@ -2,10 +2,10 @@
   "name": "wad-assignment-2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node ./src/index.js",
+    "start": "nodemon --exec babel-node ./src/api.js",
     "build": "npx netlify-lambda build src",
     "serve": "npx netlify-lambda serve src",
     "lint": "eslint --ext .js --ignore-path .gitignore ."
@@ -30,8 +30,10 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "loglevel": "^1.7.1",
     "mongoose": "^5.11.8",
     "netlify-lambda": "^2.0.2",
+    "saslprep": "^1.0.3",
     "serverless-http": "^2.6.0"
   }
 }
