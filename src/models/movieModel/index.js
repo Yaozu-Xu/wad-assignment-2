@@ -30,6 +30,8 @@ const MovieSchema = new Schema({
   tagline: { type: String },
 })
 
-MovieSchema.statics.findByMovieDBId = (id) => this.findOne({ id })
+MovieSchema.statics.findByMovieDBId = function findByMovieDBId(id) {
+  return this.findOne({ id })
+}
 
 export default mongoose.model('Movies', MovieSchema)
