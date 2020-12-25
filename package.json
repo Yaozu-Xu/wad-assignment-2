@@ -6,9 +6,8 @@
   "scripts": {
     "test": "jest --detectOpenHandles",
     "test:watch": "jest --watch",
-    "start": "nodemon --exec babel-node ./src/api.js",
     "build": "npx netlify-lambda build src",
-    "serve": "npx netlify-lambda serve src",
+    "start": "npx netlify-lambda serve src",
     "lint": "eslint --ext .js --ignore-path .gitignore ."
   },
   "keywords": [],
@@ -28,7 +27,6 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "jest": "^26.6.3",
-    "nodemon": "^2.0.6",
     "supertest": "^6.0.1"
   },
   "dependencies": {
