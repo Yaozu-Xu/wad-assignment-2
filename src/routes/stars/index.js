@@ -13,8 +13,4 @@ router.get('/:id', (req, res, next) => {
   starModel.findStarById(id).then((star) => res.status(200).send(star)).catch(next)
 })
 
-router.get('/test', (req, res) => {
-  res.json({ test: 'test' })
-})
-
 export default router
