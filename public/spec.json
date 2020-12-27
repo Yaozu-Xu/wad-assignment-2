@@ -1,0 +1,152 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "TMDB serverless api",
+        "version": "1.0.0",
+        "title": "wad-assignment-2",
+        "contact": {
+            "email": "20091590@mail.wit.ie",
+            "author": "xyz"
+        }
+    },
+    "tags": [
+        {
+            "name": "User",
+            "description": "User routes"
+        },
+        {
+            "name": "Movie",
+            "description": "Movies routes"
+        },
+        {
+            "name": "Star",
+            "description": "Stars routes"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/.netlify/functions/api/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all the user list",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/.netlify/functions/api/user/{$id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get specified user by id",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Valid id"
+                    }
+                },
+                "security": [
+                    {
+                        "petstore_auth": [
+                            "write:pets",
+                            "read:pets"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/.netlify/functions/api/user/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Post user data",
+                "description": "Signup route",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User data",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Valid id"
+                    }
+                },
+                "security": [
+                    {
+                        "petstore_auth": [
+                            "write:pets",
+                            "read:pets"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "required": [
+                "username",
+                "email",
+                "password",
+                "savedStars"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "example": "user1"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "user1@gmail.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "Pwduser1"
+                }
+            },
+            "xml": {
+                "name": "User"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Author: Yaozu-Xu",
+        "url": "https://github.com/Yaozu-Xu"
+    }
+}
