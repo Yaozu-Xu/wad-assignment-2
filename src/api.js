@@ -6,7 +6,7 @@ import bodyParser from 'body-parser'
 import movieRouter from './routes/movies'
 import userRouter from './routes/users'
 import starRouter from './routes/stars'
-import { errHandler } from './middleware'
+import { errHandler, passport } from './middleware'
 import { loadMovies, loadStars, loadUsers } from './seed'
 
 dotenv.config()
@@ -20,6 +20,7 @@ if (process.env.SEED_DATA === 'development') {
 const app = express()
 
 app.use(bodyParser.json())
+app.use(passport.initialize())
 app.use('/.netlify/functions/api/movies', movieRouter)
 app.use('/.netlify/functions/api/stars', starRouter)
 app.use('/.netlify/functions/api/users', userRouter)
