@@ -28,7 +28,7 @@
         "http"
     ],
     "paths": {
-        "/.netlify/functions/api/user": {
+        "/.netlify/functions/api/users": {
             "get": {
                 "tags": [
                     "User"
@@ -47,12 +47,12 @@
                 }
             }
         },
-        "/.netlify/functions/api/user/{$id}": {
+        "/.netlify/functions/api/users/{$username}": {
             "get": {
                 "tags": [
                     "User"
                 ],
-                "summary": "Get specified user by id",
+                "summary": "Get specified user by username",
                 "description": "",
                 "produces": [
                     "application/json"
@@ -61,7 +61,7 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "User id",
+                        "description": "User name",
                         "required": true
                     }
                 ],
@@ -80,7 +80,7 @@
                 ]
             }
         },
-        "/.netlify/functions/api/user/register": {
+        "/.netlify/functions/api/users/register": {
             "post": {
                 "tags": [
                     "User"
@@ -105,15 +105,163 @@
                     "200": {
                         "description": "Valid id"
                     }
-                },
-                "security": [
+                }
+            }
+        },
+        "/.netlify/functions/api/users/{$id}": {
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete specified user",
+                "description": "Delete route",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
                     {
-                        "petstore_auth": [
-                            "write:pets",
-                            "read:pets"
-                        ]
+                        "description": "User id",
+                        "required": true
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "description": "update user successfully"
+                    },
+                    "400": {
+                        "description": "no such user"
+                    }
+                }
+            }
+        },
+        "/.netlify/functions/api/users/put/{$id}": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Put specified user",
+                "description": "Put route",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User data",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "update user successfully"
+                    },
+                    "400": {
+                        "description": "invalid user data"
+                    }
+                }
+            }
+        },
+        "/.netlify/functions/api/users/auth/": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Sign in and auth",
+                "description": "Auth route",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User data",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "Authentication failed. Wrong password"
+                    }
+                }
+            }
+        },
+        "/.netlify/functions/api/stars": {
+            "get": {
+                "tags": [
+                    "Star"
+                ],
+                "summary": "Get star lists",
+                "description": "Get route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return star list"
+                    }
+                }
+            }
+        },
+        "/.netlify/functions/api/stars/${id}": {
+            "get": {
+                "tags": [
+                    "Star"
+                ],
+                "summary": "Get specfied star",
+                "description": "Get route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return specified star"
+                    }
+                }
+            }
+        },
+        "/.netlify/functions/api/movies": {
+            "get": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Get movie lists",
+                "description": "Get route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return movie list"
+                    }
+                }
+            }
+        },
+        "/.netlify/functions/api/movies/${id}": {
+            "get": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Get specfied star",
+                "description": "Get route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return specified movie"
+                    }
+                }
             }
         }
     },
