@@ -70,14 +70,6 @@
                         "description": "Valid id"
                     }
                 },
-                "security": [
-                    {
-                        "petstore_auth": [
-                            "write:pets",
-                            "read:pets"
-                        ]
-                    }
-                ]
             }
         },
         "/.netlify/functions/api/users/register": {
@@ -228,6 +220,54 @@
                         "description": "return specified star"
                     }
                 }
+            }
+        },
+        "/.netlify/functions/api/stars/${id}/save": {
+            "post": {
+                "tags": [
+                    "Star"
+                ],
+                "summary": "Save specfied star in user model",
+                "description": "Post route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully saved star"
+                    }
+                },
+                "security": [
+                    {
+                        "header_auth": [
+                            "authorization"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/.netlify/functions/api/stars/${id}/unsave": {
+            "delete": {
+                "tags": [
+                    "Star"
+                ],
+                "summary": "Unsave specfied star in user model",
+                "description": "Delete route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully unsaved star"
+                    }
+                },
+                "security": [
+                    {
+                        "header_auth": [
+                            "authorization"
+                        ]
+                    }
+                ]
             }
         },
         "/.netlify/functions/api/movies": {
