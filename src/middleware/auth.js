@@ -9,10 +9,10 @@ const JWTStrategy = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
 
 const jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken()
+jwtOptions.jwtFromRequest = ExtractJWT.fromHeader('authorization')
 jwtOptions.secretOrKey = process.env.SALT
 const strategy = new JWTStrategy(jwtOptions, async (payload, next) => {
-  const user = await UserModel.findByUserName(payload)
+  const user = await UserModel.findByUserName(payload.data)
   if (user) {
     next(null, user)
   } else {
