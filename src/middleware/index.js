@@ -1,4 +1,5 @@
 import passport from './auth'
+import optimizelyHandler from './optimizelyHandler'
 
 const errHandler = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'production') {
@@ -8,4 +9,4 @@ const errHandler = (err, req, res, next) => {
   next()
 }
 
-export { errHandler, passport }
+export { errHandler, passport, optimizelyHandler }

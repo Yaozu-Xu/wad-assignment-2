@@ -7,7 +7,7 @@ import session from 'express-session'
 import movieRouter from './routes/movies'
 import userRouter from './routes/users'
 import starRouter from './routes/stars'
-import { errHandler, passport } from './middleware'
+import { errHandler, passport, optimizelyHandler } from './middleware'
 import { loadMovies, loadStars, loadUsers } from './seed'
 
 dotenv.config()
@@ -26,6 +26,7 @@ app.use(session({
   saveUninitialized: true,
 }))
 app.use(bodyParser.json())
+app.use(optimizelyHandler)
 app.use(passport.initialize())
 app.use('/.netlify/functions/api/movies', movieRouter)
 app.use('/.netlify/functions/api/stars', starRouter)
