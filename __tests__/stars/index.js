@@ -1,6 +1,7 @@
 import request from 'supertest'
 import mongoose from 'mongoose'
 import api from '../../src/api'
+import optimizelyClientInstance from '../../src/optimizely'
 
 const baseUrl = '/.netlify/functions/api/stars'
 const userUrl = '/.netlify/functions/api/users'
@@ -147,5 +148,6 @@ describe('Star api save and unsave request testing', () => {
   })
   afterAll(async () => {
     await mongoose.disconnect()
+    await optimizelyClientInstance.close()
   })
 })

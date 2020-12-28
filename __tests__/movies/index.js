@@ -1,6 +1,7 @@
 import request from 'supertest'
 import mongoose from 'mongoose'
 import api from '../../src/api'
+import optimizelyClientInstance from '../../src/optimizely'
 
 const baseUrl = '/.netlify/functions/api/movies'
 
@@ -61,5 +62,6 @@ describe('movie api get request testing', () => {
   })
   afterAll(async () => {
     await mongoose.disconnect()
+    await optimizelyClientInstance.close()
   })
 })
