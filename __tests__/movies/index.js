@@ -49,6 +49,16 @@ describe('movie api get request testing', () => {
       })
     done()
   })
+  it('should return unfinished by requesting a unfinished route', async (done) => {
+    await request(api)
+      .get(`${baseUrl}/feature/unfinished`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((res) => {
+        expect(res.body.msg).toBe('this fetaure is unfinished')
+      })
+    done()
+  })
   afterAll(async () => {
     await mongoose.disconnect()
   })
