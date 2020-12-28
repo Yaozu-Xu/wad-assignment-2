@@ -16,6 +16,7 @@
   "rules": {
     "semi": [2, "never"],
     "import/prefer-default-export": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "radix": "off"
   }
 }
