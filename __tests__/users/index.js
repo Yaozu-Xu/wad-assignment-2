@@ -6,7 +6,7 @@ const baseUrl = '/.netlify/functions/api/users'
 
 const user = {
   username: 'user1',
-  email: 'user1@gmail.com',
+  email: 'user1@gamil.com',
 }
 
 const validUser = {
@@ -63,6 +63,27 @@ describe('user api post request testing', () => {
       .expect(400)
       .then((res) => {
         expect(res.body.errors.length).toBeGreaterThan(0)
+      })
+    done()
+  })
+})
+
+describe('user api signin and auth request testing', () => {
+  it('should return 401 code by posting invalid password', async (done) => {
+    await request(api)
+      .post(`${baseUrl}/auth`)
+      .send(invalidUser)
+      .then((res) => {
+        expect(res.body.msg).toBe('Authentication failed. Wrong password.')
+      })
+    done()
+  })
+  it('should return 200 code by posting a valid user', async (done) => {
+    await request(api)
+      .post(`${baseUrl}/auth`)
+      .send(validUser)
+      .then((res) => {
+        expect(res.body.success).toBe(true)
       })
     done()
   })
