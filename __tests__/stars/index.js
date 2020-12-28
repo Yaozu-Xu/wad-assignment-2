@@ -3,8 +3,13 @@ import mongoose from 'mongoose'
 import api from '../../src/api'
 
 const baseUrl = '/.netlify/functions/api/stars'
-
+const userUrl = '/.netlify/functions/api/users'
+let token
 const id = 62
+const validUser = {
+  username: 'user1',
+  password: 'Pwduser1',
+}
 
 const star = {
   adult: false,
@@ -95,6 +100,48 @@ describe('Star api get request testing', () => {
       .then((res) => {
         expect(res.body.id).toBe(star.id)
         expect(res.body.gender).toBe(star.gender)
+      })
+    done()
+  })
+})
+
+describe('Star api save and unsave request testing', () => {
+  beforeAll(async () => {
+    await request(api)
+      .post(`${userUrl}/auth`)
+      .send(validUser)
+      .then((res) => {
+        token = res.body.token
+      })
+  })
+  it('should save your favourite star successfully', async (done) => {
+    await request(api)
+      .post(`${baseUrl}/${id}/save`)
+      .set('authorization', token)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((res) => {
+        expect(res.body.msg).toBe('successfully saved star')
+      })
+    done()
+  })
+  it('should not save your favourite without authorization', async (done) => {
+    await request(api)
+      .post(`${baseUrl}/${id}/save`)
+      .then((res) => {
+        expect(res.body).toStrictEqual({})
+      })
+      .catch()
+    done()
+  })
+  it('should unsave your favourite star successfully', async (done) => {
+    await request(api)
+      .delete(`${baseUrl}/${id}/unsave`)
+      .set('authorization', token)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((res) => {
+        expect(res.body.msg).toBe('successfully unsaved star')
       })
     done()
   })
