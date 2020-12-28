@@ -13,8 +13,12 @@ router.get('/:id', (req, res, next) => {
   movieModel.findByMovieDBId(id).then((movie) => res.status(200).send(movie)).catch(next)
 })
 
-router.get('/test', (req, res) => {
-  res.json({ test: 'test' })
+// A router for testing optimizely rollout
+router.get('/feature/unfinished', (req, res) => {
+  const isEnabled = req.optimizely.isFeatureEnabled(
+    'feature_unfinished',
+  )
+  res.json({ msg: isEnabled ? 'this feature is finished' : 'this fetaure is unfinished' })
 })
 
 export default router
