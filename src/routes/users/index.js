@@ -51,7 +51,12 @@ router.post('/auth', async (req, res, next) => {
   }
   await user.comparePassword(req.body.password, (err, isMatch) => {
     if (isMatch && !err) {
-      const token = jwt.sign(user.username, process.env.SALT)
+      const token = jwt.sign({
+        // add expres date for 1 day
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+        data: user.username,
+      },
+      process.env.SALT)
       res.status(200).json({
         success: true,
         token,

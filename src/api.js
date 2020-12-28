@@ -3,6 +3,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import serverless from 'serverless-http'
 import bodyParser from 'body-parser'
+import session from 'express-session'
 import movieRouter from './routes/movies'
 import userRouter from './routes/users'
 import starRouter from './routes/stars'
@@ -19,6 +20,11 @@ if (process.env.SEED_DATA === 'development') {
 
 const app = express()
 
+app.use(session({
+  secret: 'XYZ',
+  resave: true,
+  saveUninitialized: true,
+}))
 app.use(bodyParser.json())
 app.use(passport.initialize())
 app.use('/.netlify/functions/api/movies', movieRouter)
