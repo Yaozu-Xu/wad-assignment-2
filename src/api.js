@@ -2,6 +2,7 @@ import './db'
 import express from 'express'
 import dotenv from 'dotenv'
 import serverless from 'serverless-http'
+import helmet from 'helmet'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import movieRouter from './routes/movies'
@@ -25,6 +26,16 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
 }))
+// Use helmet to protect the app
+app.use(helmet.contentSecurityPolicy())
+app.use(helmet.frameguard())
+app.use(helmet.hidePoweredBy())
+app.use(helmet.hsts())
+app.use(helmet.ieNoOpen())
+app.use(helmet.noSniff())
+app.use(helmet.referrerPolicy())
+app.use(helmet.xssFilter())
+
 app.use(bodyParser.json())
 app.use(optimizelyHandler)
 app.use(passport.initialize())
