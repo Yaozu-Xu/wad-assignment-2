@@ -21,6 +21,10 @@
         {
             "name": "Star",
             "description": "Stars routes"
+        },
+        {
+            "name": "Search",
+            "description": "Search routes"
         }
     ],
     "schemes": [
@@ -69,7 +73,7 @@
                     "200": {
                         "description": "Valid id"
                     }
-                },
+                }
             }
         },
         "/.netlify/functions/api/users/register": {
@@ -303,7 +307,42 @@
                     }
                 }
             }
+        },
+        "/.netlify/functions/api/search/movie?{keyword=}": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Get specfied movie by keyword",
+                "description": "Get route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return specified movie"
+                    }
+                }
+            }
+        },
+        "/.netlify/functions/api/search/star?{keyword=}": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Get specfied star by keyword",
+                "description": "Get route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return specified star"
+                    }
+                }
+            }
         }
+
     },
     "definitions": {
         "User": {
