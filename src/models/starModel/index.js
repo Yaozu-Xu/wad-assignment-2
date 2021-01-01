@@ -34,4 +34,10 @@ StarSchema.statics.findStarById = function findStarById(id) {
   return this.findOne({ id })
 }
 
+StarSchema.statics.findByKeyword = function findByKeyword(keyWord) {
+  return this.find({
+    $or: [{ name: { $regex: keyWord, $options: 'i' } }, { known_for_department: { $regex: keyWord, $options: 'i' } }],
+  })
+}
+
 export default mongoose.model('Stars', StarSchema)

@@ -34,4 +34,11 @@ MovieSchema.statics.findByMovieDBId = function findByMovieDBId(id) {
   return this.findOne({ id })
 }
 
+// i: case sensitive search
+MovieSchema.statics.findByKeword = function findByKeyWord(keyWord) {
+  return this.find({
+    $or: [{ original_title: { $regex: keyWord, $options: 'i' } }, { overview: { $regex: keyWord, $options: 'i' } }],
+  })
+}
+
 export default mongoose.model('Movies', MovieSchema)
