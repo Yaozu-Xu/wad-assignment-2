@@ -41,14 +41,7 @@
                 "description": "",
                 "produces": [
                     "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        }
-                    }
-                }
+                ]
             }
         },
         "/.netlify/functions/api/users/{$username}": {
