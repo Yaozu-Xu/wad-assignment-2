@@ -24,7 +24,13 @@ router.post('/:id/save',
       const star = await starModel.findStarById(id)
       const decoded = jwt.verify(authorization, process.env.SALT)
       await userModel.update({ username: decoded.data }, { $push: { savedStars: star } })
-      res.status(200).send({ msg: 'successfully saved star' })
+      const newToken = jwt.sign({
+        // add expres date for 1 day
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+        data: decoded.data,
+      },
+      process.env.SALT)
+      res.status(200).send({ msg: 'successfully saved star', token: newToken })
     } catch (err) {
       return res.status(400).send({ msg: err.toString() })
     }
@@ -40,7 +46,13 @@ router.delete('/:id/unsave',
       const { _id } = star
       const decoded = jwt.verify(authorization, process.env.SALT)
       await userModel.update({ username: decoded.data }, { $pull: { savedStars: _id } })
-      res.status(200).send({ msg: 'successfully unsaved star' })
+      const newToken = jwt.sign({
+        // add expres date for 1 day
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+        data: decoded.data,
+      },
+      process.env.SALT)
+      res.status(200).send({ msg: 'successfully unsaved star', token: newToken })
     } catch (err) {
       return res.status(400).send({ msg: err.toString() })
     }
